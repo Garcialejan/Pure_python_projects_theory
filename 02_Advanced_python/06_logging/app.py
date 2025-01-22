@@ -7,7 +7,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S',
     handlers=[
         logging.FileHandler("app1.log"), # To define the name where logs are saved
-        logging.StreamHandler() # To sure the logs are been writed in the log file
+        logging.StreamHandler() # To sure the logs are been shown on the terminal
     ]
 )
 
