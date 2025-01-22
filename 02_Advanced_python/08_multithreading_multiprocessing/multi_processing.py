@@ -1,6 +1,9 @@
-## PRocesses that run in parallel
+## Processes that run in parallel
 ### CPU-Bound Tasks-Tasks that are heavy on CPU usage (e.g., mathematical computations, data processing).
-## PArallel execution- Multiple cores of the CPU
+## Parallel execution- Multiple cores of the CPU
+
+# With multiprocessing, we are using independent memory for each process. This is the main diference
+# between multiprocessing and multithreading (same block of memory).
 
 import multiprocessing
 

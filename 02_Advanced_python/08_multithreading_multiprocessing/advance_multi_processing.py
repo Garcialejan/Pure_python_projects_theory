@@ -1,4 +1,5 @@
 ###  Multiprocessing with ProcessPoolExecutor
+### We use all the avaiable cores or the cores we want and create diferent process.
 
 from concurrent.futures import ProcessPoolExecutor
 import time

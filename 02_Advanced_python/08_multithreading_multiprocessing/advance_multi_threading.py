@@ -1,5 +1,5 @@
 ### Multithreading With Thread Pool Executor
-
+### We use all the avaiable threads or the threads we want for the same process.
 from concurrent.futures import ThreadPoolExecutor
 import time
 
@@ -10,6 +10,7 @@ def print_number(number):
 numbers=[1,2,3,4,5,6,7,8,9,0,1,2,3]
 
 with ThreadPoolExecutor(max_workers=3) as executor:
+    # By default we use all the threads putting max_workers=-1
     results=executor.map(print_number,numbers)
 
 for result in results:
