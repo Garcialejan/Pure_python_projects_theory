@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
 
-@st.cache_data
+@st.cache_data # To save the data into the cache and not load every time that we refresh the page
 def load_data():
     iris = load_iris()
     df = pd.DataFrame(iris.data, columns=iris.feature_names)
@@ -23,10 +23,9 @@ petal_width = st.sidebar.slider("Petal width", float(df['petal width (cm)'].min(
 
 input_data = [[sepal_length, sepal_width, petal_length, petal_width]]
 
-## PRediction
+## Prediction
 prediction = model.predict(input_data)
 predicted_species = target_names[prediction[0]]
 
 st.write("Prediction")
 st.write(f"The predicted species is: {predicted_species}")
-
