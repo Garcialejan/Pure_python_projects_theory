@@ -50,6 +50,7 @@ docker container inspect mysql3
 
 docker volume create --help
 
+
 ## Persistent Data: Bind Mounting
 
 cd dockerfile-sample-2
@@ -61,6 +62,11 @@ docker container run -d --name nginx -p 80:80 -v $(pwd):/usr/share/nginx/html ng
 docker container run -d --name nginx2 -p 8080:80 nginx
 
 docker container exec -it nginx bash
+
+## Assignment Answers: Database volumes
+
+docker container run -d --name postgres_db -e POSTGRES_PASSWORD=1234 -v postgres_volume:/var/lib/postgresql/data postgres:14.15-alpine3.20
+
 
 ## Assignment Answers: Edit Code Running In Containers With Bind Mounts
 
