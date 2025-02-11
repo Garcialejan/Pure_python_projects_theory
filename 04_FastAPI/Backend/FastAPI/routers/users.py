@@ -18,10 +18,12 @@ class User(BaseModel):
     age: int
 
 
-users_list = [User(id=1, name="Brais", surname="Moure", url="https://moure.dev", age=35),
+users_list = [User(id=1, name="Brais", surname="Moure",
+                   url="https://moure.dev", age=35),
               User(id=2, name="Moure", surname="Dev",
                    url="https://mouredev.com", age=35),
-              User(id=3, name="Brais", surname="Dahlberg", url="https://haakon.com", age=33)]
+              User(id=3, name="Brais", surname="Dahlberg",
+                   url="https://haakon.com", age=33)]
 
 
 @router.get("/usersjson")
