@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, HTTPException
+from fastapi import FastAPI, Request, HTTPException
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -74,4 +74,12 @@ async def create_item(request:Request, item:ItemCreate):
     )
     items.append(new_item)
     return new_item
-    
+
+# DELETE: Delete an item
+@app.delete("/items/{item_id}", status_code=200)
+async def delete_item(item_id:int):
+    # Eliminar los items en función del id
+    global items
+    items = [item for item in items if item.id != item_id]
+    raise HTTPException(status_code=200,
+                         detail = "Item deleted correctly")
