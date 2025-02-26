@@ -1,12 +1,12 @@
 # Programación orientada a objetos
 
-## Atributos y métodos
+## 1. Atributos y métodos
 - Los nombres de las clases siempre empiezan en mayúsculas
 - Instanciar una clase = crear un objeto
 - El primer método de una clase es el **método constructor**, el cual define los atributos de la misma (p, ej en la clase movil, tenemos marca, modelo, camara, ...). Define las propiedas iniciales que va a tener nuestro objeto.
 - Un **método** es una función. Los métodos definen funciones que puede realizar el objeto (clase) creado. Recordar, siempre debemos pasar el parámetro self a estos métodos, para hacer referencia a la clase/objeto al que pertenece (de esta forma un objeto puede autoreferenciarse)
 
-## Herencia
+## 2. Herencia
 - Cuando dentro de una clase cramos otras subclases. Por ejemplo, dentro de de la clase profesión, podemos tener ingeniero, abogado, agricultor, etc
 - Permite a las clases hijas heredar a todos los métodos y a todos los atributos generados por la clase padre. Además de heredar, se pueden incluir métodos o atributos específicos dentro de dicha subclase
 - Para heredar los atributos de la clase padre, usaremos de nuevo un constructor, pero en este caso será diferente, ya que el nuevo contructor tendrá el prefijo super. Es decir, tendremos `def __init__(todos_atributos): /n super().__init__(atributos_a_heredar)`
@@ -16,7 +16,7 @@
 
 ![herencia_jerarquica](static_img/herencia_jerarqu.jpg)
 
-### Herencia múltiple
+### 2.1 Herencia múltiple
 - Se da cuando heredamos a tributos y métodos no solo de la clase padre, si no también de una de las subclases
 - En este caso, para decidir de que superclase heredamos, ya no utilizamos `super().__init__`, sino que usaremos `NombreSuperClase.__init__()`
 - En algunos casos, sí que podremos utilizar el método `super()`, en concreto, cuando queremos que herede un método de una clase superior
@@ -26,7 +26,7 @@
   ![herencia_multiple](static_img/herec_multiple.png)
 
 
-### Método de resolución de orden (MRO)
+### 2.2 Método de resolución de orden (MRO)
 - En caso de que una subclase tenga un metodo que coincide con el de la superclase, el MRO define a qué metodo le dará prioridad
 - Define el orden el que Python busca métodos y atributos en las clases. Muy útil cuando hay una cadena larga de herencia en nuestro código
 - En este caso es muy  útil `super()`, ya que en este caso, python consultrá el MRO para saber la próxima clase que tiene prioridad
@@ -37,3 +37,39 @@
 ![MRO](static_img/MRO.png)
 
 ![MRO](static_img/python_mro.png)
+
+## 3. Polimorfismo
+El polimorfismo es una característica fundamental de la POO que permite que objetos de diferentes tipos sean tratados de manera uniforme. Esto significa que diferentes clases pueden implementar métodos o atributos con el mismo nombre, pero con comportamientos específicos para cada clase. Las principales características del polimorfismo son:
+- El polimorfismo Se puede lograr mediante herencia, donde una clase derivada redefine (o sobreescribe) métodos de la clase base.
+- Duck Typing : Python utiliza el concepto de "duck typing", lo que significa que no importa el tipo exacto del objeto, siempre que tenga el método requerido.
+- La sobrecarga de operadores también se relaciona con el polimorfismo, ya que permite cambiar el comportamiento de operadores como +, -, etc., para diferentes tipos de objetos.
+
+El polimorfismo permite que diferentes tipos de objetos sean tratados de manera uniforme mediante una interfaz común. Esto facilita la **creación de código más flexible, reutilizable y fácil de mantener**. Gracias a esta características, se puede simplificar el diseño del programa al permitir que diferentes clases compartan un comportamiento común, pero lo implementen de manera específica. En general, el poñlimorfismo implementa las siguientes ventajas:
+- Facilita la extensibilidad ya que puedes agregar nuevas clases sin modificar el código existente.
+- Mejora la legibilidad ya que el código se centra en las acciones generales y no en los detalles específicos de cada clase.
+
+## 4. Encapsulación
+La encapsulación es el proceso de ocultar los detalles internos de un objeto y exponer solo las interfaces necesarias para interactuar con él. En Python, esto se logra mediante el uso de modificadores de acceso, aunque no son estrictos como en otros lenguajes.Los principales modificadores de acceso en python son:
+- Público: Los atributos y métodos son accesibles desde cualquier lugar. Por ejemplo: `self.nombre`.
+- Protegido: Los atributos y métodos indicados con un guion bajo `(_)` son considerados protegidos y deben ser accedidos solo dentro de la misma clase o subclases. Por ejemplo: `self._edad`.
+- Privado: Los atributos y métodos indicados con dos guiones bajos `(__)` son considerados privados y no deberían ser accedidos directamente desde fuera de la clase. Por ejemplo: `self.__saldo`.
+- Hay que tener en cuenta que en Python, el encapsulamiento no es estricto. Incluso los atributos "privados" pueden ser accedidos usando `_NombreDeClase__nombre_del_atributo`.
+- Es una práctica recomendada usar métodos getter y setter para acceder/modificar atributos privados. Es decir, nosotros creamos atributos privados y accedemos a ellos utilzando un método (función dentro de la clase) que permite acceder a dicho atributo desde fuera de la clase en caso de que esto sea necesario.
+
+La encapsulación permite **proteger la integridad de los datos** y proporcionar un mecanismo seguro para acceder/modificar atributos, evitando que los usuarios de una clase modifiquen accidentalmente atributos internos.
+
+## 5. Abstracción
+La abstracción es el proceso de ocultar la complejidad mostrando solo los detalles esenciales al usuario. En Python, se logra mediante la creación de clases abstractas y métodos abstractos. Para crear una clase abstracta en Python, se utiliza el módulo abc (Abstract Base Classes). Las principales características de la abstracción son:
+- Las clases abstractas no pueden ser instanciadas directamente.
+- Fuerzan a las subclases a implementar ciertos métodos mediante el decorador `@abstractmethod`.
+- Ayudan a definir una interfaz común para diferentes tipos de objetos.
+
+La abstracción **reducir la complejidad y enfocarse en las características más importantes** de un objeto o sistema. Define una estructura base que todas las subclases deben seguir facilitando de esta forma la **creación de sistemas escalables y modularizados**. La abstracción es usada cuando se necesita definir una interfaz común para múltiples clases relacionadas pero no es necesario implementarla cuando se trabaja con clases independientes que no requieren una estructura base o comportamientos compartidos.
+
+## 6. Métodos Mágicos (Magic Methods)
+Los métodos mágicos, también conocidos como métodos especiales, son funciones predefinidas en Python que comienzan y terminan con doble guion bajo (__). Estos métodos permiten personalizar el comportamiento de las clases y objetos. Las principales métodos mágicos son: \
+  1) **Inicialización de objetos**: `__init__(self, ...)` es el método llamado cuando se crea un objeto.
+  2) **Representación de objetos**: `__str__(self)` devuelve una representación legible del objeto mientras que `__repr__(self)` devuelve una representación oficial del objeto.
+  3) **Operadores aritmétcios**: `__add__(self, other)` define el comportamiento del operador `+` mientras que `__sub__(self, other)` define el comportamiento del operador `-`.
+  4) **Comparaciones**
+  5) **Contenedores**
