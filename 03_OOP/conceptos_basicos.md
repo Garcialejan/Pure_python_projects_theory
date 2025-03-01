@@ -18,8 +18,8 @@
 
 ### 2.1 Herencia múltiple
 - Se da cuando heredamos atributos y métodos no solo de la clase padre, si no también de una de las subclases
-- En este caso, para decidir de que superclase heredamos, ya no utilizamos `super().__init__`, sino que usaremos `NombreSuperClase.__init__()`
-- En algunos casos, sí que podremos utilizar el método `super()`, en concreto, cuando queremos que herede un método de una clase superior
+- En este caso, para decidir de que superclase heredamos, ya no utilizamos `super().__init__(...)`, sino que usaremos `NombreSuperClase.__init__(self, ....)`. Muy importante, si usamos el método `super().__init__` no será necesario pasarle el atributo `self`, por el conrario, si hacemos referencia a una clase específica, si es necesario pasar `self` como atributo.
+- En algunos casos, sí que podremos utilizar el método `super()`, en concreto, cuando queremos que herede un método de una clase superior.
 - Para comprobar si una clase es una sub clase utilziaremos `issubclass(nombre_subclase, nombre_superclase)`
 - Para comprobar si un objeto que hemos creado pertenece a una clase utilizaremos el comdando `isinstance(nombre_objeto, nombre_clase)`
   
@@ -55,26 +55,59 @@ La encapsulación es el proceso de ocultar los detalles internos de un objeto y 
 - Privado: Los atributos y métodos indicados con dos guiones bajos `(__)` son considerados privados y no deberían ser accedidos directamente desde fuera de la clase. Por ejemplo: `self.__saldo`.
 - Hay que tener en cuenta que en Python, el encapsulamiento no es estricto. Incluso los atributos "privados" pueden ser accedidos usando `_NombreDeClase__nombre_del_atributo`.
 - Es una práctica recomendada **usar métodos getter y setter para acceder/modificar atributos privados**. Es decir, nosotros creamos atributos privados y accedemos a ellos utilzando un método (función dentro de la clase) que permite acceder a dicho atributo desde fuera de la clase en caso de que esto sea necesario.
+- La principal **diferencia entre privado y protegido** es que, mientras los privados no pueden ser accedidos desde fuera de la clase, los protegidos tampoco, pero sí pueden ser accedidos a través de clases derivadas, es decir, clases que hereden cieros atributos protegidos de una clase padre.
 
 La encapsulación permite **proteger la integridad de los datos** y proporcionar un mecanismo seguro para acceder/modificar atributos, evitando que los usuarios de una clase modifiquen accidentalmente atributos internos.
 
 ## 5. Abstracción
 La abstracción es el proceso de ocultar la complejidad mostrando solo los detalles esenciales al usuario. En Python, se logra mediante la creación de clases abstractas y métodos abstractos. Para crear una clase abstracta en Python, se utiliza el módulo abc (Abstract Base Classes). Las principales características de la abstracción son:
 - Las clases abstractas no pueden ser instanciadas directamente.
-- Fuerzan a las subclases a implementar ciertos métodos mediante el decorador `@abstractmethod`.
+- Fuerzan a las subclases a implementar ciertos métodos mediante el decorador `@abstractmethod`. En la clase principal, dicho método estará vacío y se implementará en la sublase correspondiente. De esta forma, cada clase implementa su propio método.
 - Ayudan a definir una interfaz común para diferentes tipos de objetos.
 
-La abstracción **reducir la complejidad y enfocarse en las características más importantes** de un objeto o sistema. Define una estructura base que todas las subclases deben seguir facilitando de esta forma la **creación de sistemas escalables y modularizados**. La abstracción es usada cuando se necesita definir una interfaz común para múltiples clases relacionadas pero no es necesario implementarla cuando se trabaja con clases independientes que no requieren una estructura base o comportamientos compartidos. Se basa en ocultar la clase principal, la cual puede que no se use ya que solo se utilizan las clases secundarias que heredan las características de la clase principal.
+La abstracción permite **reducir la complejidad y enfocarse en las características más importantes** de un objeto o sistema. Define una estructura base que todas las subclases deben seguir, facilitando de esta forma la **creación de sistemas escalables y modularizados**. La abstracción es usada cuando se necesita definir una interfaz común para múltiples clases relacionadas pero no es necesario implementarla cuando se trabaja con clases independientes que no requieren una estructura base o comportamientos compartidos. Se basa en ocultar la clase principal, la cual puede que no se use ya que solo se utilizan las clases secundarias que heredan las características de la clase principal.
 
 ## 6. Métodos Mágicos (Magic Methods)
 Los métodos mágicos, también conocidos como métodos especiales, son funciones predefinidas en Python que comienzan y terminan con doble guion bajo (__). Estos métodos permiten personalizar el comportamiento de las clases y objetos. Las principales métodos mágicos son: \
   1) **Inicialización de objetos**: `__init__(self, ...)` es el método llamado cuando se crea un objeto.
   2) **Representación de objetos**: `__str__(self)` devuelve una representación legible del objeto mientras que `__repr__(self)` devuelve una representación oficial del objeto.
   3) **Operadores aritmétcios**: `__add__(self, other)` define el comportamiento del operador `+` mientras que `__sub__(self, other)` define el comportamiento del operador `-`.
-  4) **Comparaciones**
-  5) **Contenedores**
+  4) ...
 
-## 7. Decoradores
+## 7. Decoradores principales
+
+Los decoradores **agregan funcionalidades extra** (no las modifican) a las funciones que nostros definimos. Simplemente agregan código (que no vemos) que añade ciertas funcionaldiades, por eso reciben ese nombre, porque lo que hacen es decorar las funciones que nosotros creamos. Estos decoradores se utilizan mucho para realizar validaciones sobre nuestras funciones, es decir, verificar que se cumplen ciertas condiciones para ejecutar o no una función.
+
 - El decorador `@classmethod` y el parámetro `cls` en Python se utilizan para definir métodos que están asociados a la clase en lugar de a una instancia específica de la clase. Un método de clase es un método que recibe la clase como primer argumento implícito, en lugar de recibir una instancia (como lo haría un método de instancia con `self`). Esto significa que puedes llamar al método directamente desde la clase sin necesidad de crear una instancia. Los **métodos de clase** recibe `cls` como primer argumento, lo que permite acceder a los atributos y métodos de la clase en sí misma.
 - El decorador `@staticmethod` en Python se utiliza para definir un **método estático** , es decir, un método que pertenece a la clase pero no tiene acceso ni a la instancia (*self*) ni a la clase (*cls*). **Es como una función regular, pero organizada dentro de una clase por razones de cohesión o diseño.** Al final, un método estático es un función que pertenece a la clase, no a una instancia y por tanto, no es necesario instanciar la clase para llamar a dicha función.
-- El decorador` @property` en Python **permite convertir un método de una clase en un atributo de solo lectura**. Es decir, puedes acceder al método como si fuera un atributo sin necesidad de usar paréntesis para invocarlo
+- El decorador` @property` en Python **permite convertir un método de una clase en un atributo de solo lectura**. Es decir, puedes acceder al método como si fuera un atributo sin necesidad de usar paréntesis para invocarlo. **Define que un método es un getter**, haciendo que sea mucho más fácil su llamada.
+- `@atributo.setter` permite crear un setter para un atributo específico, el cual seguramente sea privado o protegido y por eso creamos un setter.
+- `@atributo.deleter` permite eliminar un atributo de una clase.
+
+
+# Principios SOLID
+Se trata de una serie de cinco principios de diseño orientado a objetos que promueven la creación de software más **mantenible, escalable y fácil de entender**. Estos principios son los siguienes:
+
+### **S. Single Responsibility Principle (Principio de Responsabilidad Única)**
+- Una clase debe tener una sola razón para cambiar, lo que significa que cada clase debe tener una única responsabilidad o tarea específica. Es decir, una clase debe tener métodos únicos y funcionalidades únicas y otras clases pueden heredar estas funcionaldiades para implementarlas.
+
+### **O. Open/Closed Principle (Principio Abierto/Cerrado)**
+- Las entidades de software (clases, módulos, funciones) deben estar abiertas para extensión pero cerradas para modificación. Es decir, puedes **agregar nuevas funcionalidades sin modificar el código existente**.
+
+### **L. Liskov Substitution Principle (Principio de Sustitución de Liskov)**
+- Las subclases deben poder sustituir a sus clases base sin que el comportamiento del programa se vea afectado. Es decir, **cualquier instancia de la clase base debe poder ser reemplazada por una instancia de una subclase sin romper el código**.
+
+### **I. Interface Segregation Principle (Principio de Segregación de Interfaces)**
+- No obligues a las clases a depender de interfaces/métodos que no usan. En lugar de una interfaz grande, **divide las interfaces en interfaces más pequeñas y específicas**.
+
+### **D. Dependency Inversion Principle (Principio de Inversión de Dependencias)**
+- **Depende de abstracciones, no de implementaciones concretas**. Las clases de alto nivel no deben depender de las clases de bajo nivel; ambas deben depender de abstracciones. Este principio se basa en la **abstracción** para la creación de clases y métodos abstractos.
+
+
+| Principio | Descripción | Ejemplo en Python |
+|-----------|-------------|-------------------|
+| **S - Single Responsibility Principle** | Una clase debe tener una sola responsabilidad. | Separar la lógica de creación de usuarios, persistencia en base de datos y envío de correos en clases distintas. |
+| **O - Open/Closed Principle** | Las clases deben estar abiertas para extensión pero cerradas para modificación. | Usar polimorfismo para agregar nuevas formas (como `Triangle`) sin modificar el código existente para calcular áreas. |
+| **L - Liskov Substitution Principle** | Las subclases deben poder sustituir a sus clases base sin afectar el comportamiento del programa. | Evitar que una subclase (`Penguin`) rompa el comportamiento esperado de la clase base (`Bird`) al no volar. |
+| **I - Interface Segregation Principle** | Divide interfaces grandes en interfaces más pequeñas y específicas. | Crear interfaces separadas para impresoras (`Printer`), escáneres (`Scanner`) y máquinas de fax (`FaxMachine`) en lugar de una interfaz única grande. |
+| **D - Dependency Inversion Principle** | Depende de abstracciones, no de implementaciones concretas. | Usar interfaces abstractas (como `Switchable`) para desacoplar clases como `Switch` de implementaciones específicas como `LightBulb` o `Fan`. |
